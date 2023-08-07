@@ -67,6 +67,7 @@ namespace WebServerEmployee.DAL.Repositories
 
         public async Task<int> Create(Employee employee)
         {
+            
             using (var db = DbConnection.CreateConnection())
             {
                 var sqlQuery = "INSERT INTO Employee ([Name], Surname, Phone_number, CompanyID, PassportID, DepartmentID) VALUES (@Name, @Surname, @Phone_number, @CompanyID, @PassportID, @DepartmentID); " +
@@ -80,6 +81,7 @@ namespace WebServerEmployee.DAL.Repositories
 
         public async Task<Employee> Update(Employee employee)
         {
+
             using (var db = DbConnection.CreateConnection())
             {
                 var sqlQuery = "UPDATE Employee SET Name = @Name, Surname = @Surname, Phone_number = @Phone_number," +

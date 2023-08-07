@@ -38,7 +38,7 @@ namespace WebServerEmployee.BL.Implementations
                 var employee = await _employeeRepository.Select();
                 if(employee.Count == 0)
                 {
-                    baseResponse.Description = "Сотрудники не найдены!";
+                    baseResponse.Description = "Сотрудники не найдены! Не удалось получить список всех сотрудников";
                     baseResponse.StatusCode = StatusCode.ObjNotFound;
                     return baseResponse;
                 }
@@ -50,7 +50,7 @@ namespace WebServerEmployee.BL.Implementations
             {
                 return new BaseResponse<IEnumerable<Employee>>()
                 {
-                    Description = $"[GetAllEmployees] : ex.Message",
+                    Description = "Ошибка при выводе всех сотрудников, исключение в методе GetAllEmployees(). \r\n ex.Message: " + ex.Message,
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -80,7 +80,7 @@ namespace WebServerEmployee.BL.Implementations
             {
                 return new BaseResponse<Employee>()
                 {
-                    Description = $"[GetEmployee] : ex.Message",
+                    Description = "Ошибка при выводе  сотрудника по id, исключение в методе GetEmployee(). \r\n ex.Message: " + ex.Message,
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -110,7 +110,7 @@ namespace WebServerEmployee.BL.Implementations
             {
                 return new BaseResponse<Employee>()
                 {
-                    Description = $"[GetEmployeeByName] : ex.Message",
+                    Description = "Ошибка при выводе  сотрудника по Name, исключение в методе GetEmployeeByName. \r\n ex.Message: " + ex.Message,
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -129,7 +129,7 @@ namespace WebServerEmployee.BL.Implementations
                 var employee = await _employeeRepository.Get(id);
                 if (employee == null)
                 {
-                    baseResponse.Description = "Сотрудник не найден!";
+                    baseResponse.Description = "Сотрудник не найден! Не удалось удалить сотрудника";
                     baseResponse.StatusCode = StatusCode.ObjNotFound;
                     return baseResponse;
                 }
@@ -141,7 +141,7 @@ namespace WebServerEmployee.BL.Implementations
             {
                 return new BaseResponse<bool>()
                 {
-                    Description = $"[DeleteEmployee] : ex.Message",
+                    Description = "Ошибка при удалении сотрудника, исключение в методе DeleteEmployee(). \r\n ex.Message: " + ex.Message,
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -181,13 +181,14 @@ namespace WebServerEmployee.BL.Implementations
                     DepartmentID = employee.DepartmentID
                 };
                 baseResponse.Data = obj;
+                baseResponse.StatusCode = StatusCode.OK;
                 return baseResponse;
             }
             catch (Exception ex)
             {
                 return new BaseResponse<EmployeeViewModel>()
                 {
-                    Description = $"[CreateEmployee] : ex.Message",
+                    Description = "Не удалось добавить сотрудника, исключение в методе CreateEmployee. Не корректно введены данные \r\n ex.Message: " + ex.Message,
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -208,7 +209,7 @@ namespace WebServerEmployee.BL.Implementations
                 if (employee == null)
                 {
                     baseResponse.StatusCode = StatusCode.ObjNotFound;
-                    baseResponse.Description = "Employee not found";
+                    baseResponse.Description = "Сотрудник не найден! Не удалось отредактировать информацию о сотруднике.";
                     return baseResponse;
                 }
                 else
@@ -222,6 +223,7 @@ namespace WebServerEmployee.BL.Implementations
                     
                     await _employeeRepository.Update(employee);
 
+                    baseResponse.StatusCode = StatusCode.OK;
                     return baseResponse;
                 }
             }
@@ -229,7 +231,7 @@ namespace WebServerEmployee.BL.Implementations
             {
                 return new BaseResponse<Employee>()
                 {
-                    Description = $"[Edit] : ex.Message",
+                    Description = "Не удалось изменить данные о сотруднике, исключение в методе EditEmployee(). Не корректно введены данные \r\n ex.Message: " + ex.Message,
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -247,7 +249,7 @@ namespace WebServerEmployee.BL.Implementations
                 var employee = await _employeeRepository.SelectEmployeeByCompany(CompanyID);
                 if (employee.Count == 0)
                 {
-                    baseResponse.Description = "Сотрудники не найдены!";
+                    baseResponse.Description = "Сотрудники в этой компании не найдены!";
                     baseResponse.StatusCode = StatusCode.ObjNotFound;
                     return baseResponse;
                 }
@@ -259,7 +261,7 @@ namespace WebServerEmployee.BL.Implementations
             {
                 return new BaseResponse<IEnumerable<Employee>>()
                 {
-                    Description = $"[GetEmployeeByCompany] : ex.Message",
+                    Description = "Ошибка при выводе сотрудников компании, исключение в методе GetEmployeeByCompany. Не корректно введены данные \r\n ex.Message: " + ex.Message,
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -278,7 +280,7 @@ namespace WebServerEmployee.BL.Implementations
                 var employee = await _employeeRepository.SelectEmployeeByDepartment(DepartmentID);
                 if (employee.Count == 0)
                 {
-                    baseResponse.Description = "Сотрудники не найдены!";
+                    baseResponse.Description = "Сотрудники в этом отделе не найдены!";
                     baseResponse.StatusCode = StatusCode.ObjNotFound;
                     return baseResponse;
                 }
@@ -290,14 +292,10 @@ namespace WebServerEmployee.BL.Implementations
             {
                 return new BaseResponse<IEnumerable<Employee>>()
                 {
-                    Description = $"[GetEmployeeByDepartment] : ex.Message",
+                    Description = "Ошибка при выводе сотрудников отдела, исключение в методе GetEmployeeByDepartment(). Не корректно введены данные \r\n ex.Message: " + ex.Message,
                     StatusCode = StatusCode.InternalServerError
                 };
             }
-        }
-        public Task<IBaseResponse<bool>> DeleteEmployeeByID()
-        {
-            throw new NotImplementedException();
         }
     }
 }

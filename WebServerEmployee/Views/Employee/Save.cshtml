@@ -10,31 +10,37 @@
     <div>
         <div class="form-group">
             <label asp-for="Name"></label>
-            <input type="text" asp-for="Name" class="form-control form-control-sm" />
+            <input type="text" asp-for="Name" class="form-control " />
+            <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Surname"></label>
-            <input asp-for="Surname" class="form-control  form-control-sm" />
+            <input asp-for="Surname" class="form-control " />
+            <span asp-validation-for="Surname" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="Phone_number"></label>
-            <input asp-for="Phone_number" class="form-control  form-control-sm" />
+            <input asp-for="Phone_number" class="form-control " />
+            <span asp-validation-for="Phone_number" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="CompanyID"></label>
-            <input asp-for="CompanyID" class="form-control  form-control-sm" />
+            <input asp-for="CompanyID" class="form-control  " />
+            <span asp-validation-for="CompanyID" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="PassportID"></label>
-            <input asp-for="PassportID" class="form-control  form-control-sm" />
+            <input asp-for="PassportID" class="form-control " />
+            <span asp-validation-for="PassportID" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="DepartmentID"></label>
-            <input asp-for="DepartmentID" class="form-control  form-control-sm" />
+            <input asp-for="DepartmentID" class="form-control" />
+            <span asp-validation-for="DepartmentID" class="text-danger"></span>
         </div>
 
         <div class="form-group">

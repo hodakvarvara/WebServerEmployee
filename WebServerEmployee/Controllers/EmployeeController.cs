@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure;
+using Microsoft.AspNetCore.Mvc;
 using WebServerEmployee.BL.Implementations;
 using WebServerEmployee.BL.Interfaces;
 using WebServerEmployee.DAL.Interfaces;
 using WebServerEmployee.Domain.Entity;
+using WebServerEmployee.Domain.Response;
 using WebServerEmployee.Domain.ViewModel;
 
 namespace WebServerEmployee.Controllers
@@ -23,7 +25,7 @@ namespace WebServerEmployee.Controllers
             {
                 return View(response.Data);
             }
-            return RedirectToAction("Error"); // переход на представление, которое будет отображать ошибку
+            return RedirectToAction("MyError", "MyError", response); // переход на представление, которое будет отображать ошибку
 
         }
 
@@ -35,7 +37,7 @@ namespace WebServerEmployee.Controllers
             {
                 return View(response.Data);
             }
-            return RedirectToAction("Error"); // переход на представление, которое будет отображать ошибку
+            return RedirectToAction("MyError", "MyError", response);// переход на представление, которое будет отображать ошибку
 
         }
 
@@ -51,7 +53,7 @@ namespace WebServerEmployee.Controllers
             {
                 return RedirectToAction("GetAllEmployees"); // преход на представление, отображающее всех сотрудников
             }
-            return RedirectToAction("Error"); // переход на представление, которое будет отображать ошибку
+            return RedirectToAction("MyError", "MyError", response); // переход на представление, которое будет отображать ошибку
         }
 
         [HttpPost]
@@ -65,8 +67,8 @@ namespace WebServerEmployee.Controllers
                     return RedirectToAction("GetAllEmployees"); // преход на представление, отображающее всех сотрудников
                 }
             }
-
-            return RedirectToAction("Error");
+           
+            return RedirectToAction("MyError", "MyError", new BaseResponse<Employee> { Description = "Сотрудник с таким Id не найден", StatusCode = Domain.Enum.StatusCode.ObjNotFound });
         }
 
 
@@ -86,28 +88,35 @@ namespace WebServerEmployee.Controllers
             {
                 return View(response.Data); // преход на представление, отображающее всех сотрудников
             }
-            return RedirectToAction("Error"); // переход на представление, которое будет отображать ошибку
+            return RedirectToAction("MyError", "MyError", response); // переход на представление, которое будет отображать ошибку
         }
 
         [HttpPost]
         public async Task<IActionResult> Save(EmployeeViewModel employeeViewModel)
         {
-            //if (ModelState.IsValid)
+            if (employeeViewModel.EmployeeID == 0)
             {
-                if(employeeViewModel.EmployeeID == 0)
+                 var response = await _employeeBL.CreateEmployee(employeeViewModel); // создаем нового сотрудника
+
+                if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
-                    var obj = await _employeeBL.CreateEmployee(employeeViewModel); // создаем нового сотрудника
-                    var idd = obj.Data.EmployeeID;
-                    return RedirectToAction("GetEmployee", new { id = idd });
+                    return RedirectToAction("GetEmployee", new { id = response.Data.EmployeeID });
                 }
-                else
+                return RedirectToAction("MyError", "MyError", response);
+
+            }
+            else
+            {
+                var response = await _employeeBL.EditEmployee(employeeViewModel); // изменяем сотрудника
+                
+                if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
-                    await _employeeBL.EditEmployee(employeeViewModel); // изменяем сотрудника
                     return RedirectToAction("GetEmployee", new { id = employeeViewModel.EmployeeID });
                 }
+                return RedirectToAction("MyError", "MyError", response);
             }
-           
         }
+
         [HttpGet]
         public async Task<IActionResult> UpdateEmployeeById(int id)
         {
@@ -121,7 +130,7 @@ namespace WebServerEmployee.Controllers
             {
                 return View(response.Data); // преход на представление, отображающее всех сотрудников
             }
-            return RedirectToAction("Error"); // переход на представление, которое будет отображать ошибку
+            return RedirectToAction("MyError", "MyError", response); // переход на представление, которое будет отображать ошибку
         }
         //void
         [HttpPost]
@@ -131,14 +140,14 @@ namespace WebServerEmployee.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetEmployeeByCompany(int id)
+        public async Task<IActionResult> GetEmployeeByCompany(int id, Employee employee)
         {
             var response = await _employeeBL.GetEmployeeByCompany(id);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return View(response.Data); // преход на представление, отображающее всех сотрудников
             }
-            return RedirectToAction("Error"); // переход на представление, которое будет отображать ошибку
+            return RedirectToAction("MyError", "MyError",  response ); // переход на представление, которое будет отображать ошибку
         }
 
         [HttpGet]
@@ -149,7 +158,7 @@ namespace WebServerEmployee.Controllers
             {
                 return View(response.Data);// преход на представление, отображающее всех сотрудников
             }
-            return RedirectToAction("Error"); // переход на представление, которое будет отображать ошибку
+            return RedirectToAction("MyError", "MyError", response); // переход на представление, которое будет отображать ошибку
         }
     }
 }

@@ -11,5 +11,6 @@ namespace WebServerEmployee.Domain.Response
     {
         T Data { get; set; } // результаты запроса к бд
         StatusCode StatusCode { get; }
+        public string Description { get; set; } // строка, содержащая текст ошибки
     }
 }

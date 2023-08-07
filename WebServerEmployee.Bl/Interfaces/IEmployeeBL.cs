@@ -15,7 +15,6 @@ namespace WebServerEmployee.BL.Interfaces
         Task<IBaseResponse<IEnumerable<Employee>>> GetAllEmployees(); // получение всех сотрудников, которые есть  в бд
         Task<IBaseResponse<Employee>> GetEmployee(int id); // Получение одного сотрудника по ID
         Task<IBaseResponse<Employee>> GetEmployeeByName(string name); // Получение одного сотрудника по name
-        Task<IBaseResponse<bool>> DeleteEmployeeByID();
         Task<IBaseResponse<bool>> DeleteEmployee(int id);
         Task<IBaseResponse<EmployeeViewModel>> CreateEmployee(EmployeeViewModel employeeViewModel);
         Task<IBaseResponse<Employee>> EditEmployee(EmployeeViewModel employeeViewModel);

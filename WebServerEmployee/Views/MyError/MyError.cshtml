@@ -1,0 +1,26 @@
+﻿@model WebServerEmployee.Domain.Response.BaseResponse<Employee>
+@{
+    ViewBag.Title = "error";
+    Layout = "_Layout";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    
+</head>
+<body>
+    <div>
+        <center>
+            <h3>@Model.Description </h3>
+            <p>Status Code: @Model.StatusCode </p>
+            <p> <a asp-controller="Home" asp-action="Index"> Перейти на главное меню </a> </p>
+        </center>
+       
+        
+    </div>
+
+</body>
+</html>

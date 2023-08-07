@@ -20,7 +20,7 @@ namespace WebServerEmployee.Controllers
             {
                 return View(response.Data); 
             }
-            return RedirectToAction("Error"); // переход на представление, которое будет отображать ошибку
+            return RedirectToAction("MyError", "MyError", response); // переход на представление, которое будет отображать ошибку
         }
     }
 }
