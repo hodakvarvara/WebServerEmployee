@@ -1,0 +1,33 @@
+﻿@model WebServerEmployee.Domain.Entity.Employee
+@{
+    ViewBag.Title = "Измененный сотрудник:";
+    Layout = "_Layout";
+}
+<h2>@ViewData["Title"]</h2>
+<table class="table">
+
+    <tr>
+        <th>Id</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Номер телефона</th>
+        <th>Компания</th>
+        <th>Пасспорт</th>
+        <th>Отдел</th>
+    </tr>
+    <tr>
+        <td>@Model.EmployeeID</td>
+        <td>@Model.Name</td>
+        <td>@Model.Surname</td>
+        <td>@Model.Phone_number</td>
+        <td>@Model.CompanyID</td>
+        <td>@Model.PassportID</td>
+        <td>@Model.DepartmentID</td>
+    </tr>
+    
+</table>
+<p>
+    <a asp-controller="Employee" asp-action="GetAllEmployees"> Вывести список сотрудников </a>
+</p>
+<p> <a asp-controller="Home" asp-action="Index"> Перейти на главное меню </a> </p>
+

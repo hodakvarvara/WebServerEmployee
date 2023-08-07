@@ -1,0 +1,52 @@
+﻿@model WebServerEmployee.Domain.Entity.Employee
+
+@{
+    ViewData["Title"] = Model?.EmployeeID == 0 ? "Изменение данных" : "Добавление данных";
+}
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Save" asp-controller="Employee">
+    <input asp-for="EmployeeID" hidden />
+    <div>
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input type="text" asp-for="Name" class="form-control form-control-sm" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Surname"></label>
+            <input asp-for="Surname" class="form-control  form-control-sm" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Phone_number"></label>
+            <input asp-for="Phone_number" class="form-control  form-control-sm" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CompanyID"></label>
+            <input asp-for="CompanyID" class="form-control  form-control-sm" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PassportID"></label>
+            <input asp-for="PassportID" class="form-control  form-control-sm" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DepartmentID"></label>
+            <input asp-for="DepartmentID" class="form-control  form-control-sm" />
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Сохранить" class="btn btn-outline-secondary" />
+        </div>
+    </div>
+</form>
+
+<div>
+    <p>
+        <a asp-controller="Employee" asp-action="GetAllEmployees"> Вывести список сотрудников </a>
+    </p>
+    <p> <a asp-controller="Home" asp-action="Index"> Перейти на главное меню </a> </p>
+</div>
+

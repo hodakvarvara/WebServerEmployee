@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "WebServerEmployee";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <a class="flex-sm-fill text-sm-center nav-link" asp-controller="Employee" asp-action="GetAllEmployees"> Показать всех сотрудников </a>
+    <a class="flex-sm-fill text-sm-center nav-link" asp-controller="Employee" asp-action="Save"> Добавить нового сотрудника </a>
+    <a class="flex-sm-fill text-sm-center nav-link" asp-controller="Employee" asp-action="DeleteEmployee"> Удалить сотрудника по Id </a>
+    <a class="flex-sm-fill text-sm-center nav-link" asp-controller="Employee" asp-action="UpdateEmployeeById"> Изменить сотрудника по Id </a>
+    <a class="flex-sm-fill text-sm-center nav-link" asp-controller="Company" asp-action="GetAllCompanies"> Показать все компании </a>
+</div>

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<WebServerEmployee.Domain.Entity.Company>
+
+@{
+    ViewData["Title"] = "Список компаний";
+    Layout = "_Layout";
+}
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Название компании</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.CompanyID</td>
+            <td>@item.Name</td>
+            <td>
+                <a asp-controller="Employee" asp-action="GetEmployeeByCompany" asp-route-id="@item.CompanyID">Показать сотрудников компании </a> |
+                <a asp-controller="Department" asp-action="GetAllDepartments" asp-route-id="@item.CompanyID">Показать отделы компании</a> 
+            </td>
+        </tr>
+    }
+
+</table>
+<p>
+    <a asp-controller="Home" asp-action="Index">Главное меню</a>
+</p>

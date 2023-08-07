@@ -1,0 +1,47 @@
+﻿@model WebServerEmployee.Domain.Entity.Employee
+
+@{
+    ViewData["Title"] = "Новый пользователь";
+}
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create" asp-controller="Home">
+    <div>
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input type="text" asp-for="Name" class="form-control form-control-sm" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Surname"></label>
+            <input asp-for="Surname" class="form-control  form-control-sm" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Phone_number"></label>
+            <input asp-for="Phone_number" class="form-control  form-control-sm" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CompanyID"></label>
+            <input asp-for="CompanyID" class="form-control  form-control-sm" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PassportID"></label>
+            <input asp-for="PassportID" class="form-control  form-control-sm" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DepartmentID"></label>
+            <input asp-for="DepartmentID" class="form-control  form-control-sm" />
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Сохранить" class="btn btn-outline-secondary" />
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-controller="Home" asp-action="Index">Вернуться к списку</a>
+</div>
